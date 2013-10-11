@@ -22,6 +22,8 @@
     "vows": "0.7.0",
     "websocket": "1.0.8",
     "websocket-server": "1.4.04",
-    "underscore": "1.5.1"
+    "underscore": "1.5.1",
+    "ws": "0.4.28"
+
   }
 }
