@@ -67,7 +67,7 @@ var test=function(){
    var channel2="1/1/2";
 
    var query1={start: now, limit: limit, channel: channel1};
-   var query2={start: now, limit: limit, channels: [channel1, channel2];
+   var query2={start: now, limit: limit, channels: [channel1, channel2]};
     console.log("Sending query 1: ", query1);
     querySocket.send(query1, function(err, event){
         if(err) console.log("ERROR IN QUERY 1", err, err.stack);
