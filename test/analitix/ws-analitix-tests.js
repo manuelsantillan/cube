@@ -63,8 +63,8 @@ console.log("Cube daemon launched");
 var test=function(){
    var now=new Date();
    var limit=10000;
-   var channel1="1/1/1";
-   var channel2="1/1/2";
+   var channel1="/1/1/1";
+   var channel2="/1/1/2";
 
    var query1={start: now, limit: limit, channel: channel1};
    var query2={start: now, limit: limit, channels: [channel1, channel2]};
