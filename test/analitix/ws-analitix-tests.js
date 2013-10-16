@@ -27,16 +27,19 @@ var CubeSocket=function(path, closeOnSend) {
             };
 
             socket.onmessage=function(message){
+                var parsed=JSON.parse(message.data);
                 if(message.data==null){
-                    log.debug("No more events found from ", path, " for request: ", msg);
+
                     if(message.stop){
                         log.debug("Closing socket since last message has been received and streaming is disabled for this query");
                         socket.close();
                     }
                 } else{
-                    log.verbose("Received response from "+path+" for request: ", msg, "\n Response: ", message.data);
+                    log.verbose(parsed);
+                    log.verbose("Received response from "+path+" for request: \n Response: ", parsed.body.metadata);
                 }
-                var parsed=JSON.parse(message.data);
+
+
                 callback(null, parsed);
             };
             socket.onerror=function(error){
@@ -61,23 +64,23 @@ server.start();
 console.log("Cube daemon launched");
 
 var test=function(){
-   var now=new Date();
+   var now=new Date('2013/10/12');
    var limit=10000;
-   var channel1="/1/1/1";
-   var channel2="/1/1/2";
+   var channel1="1_1_8";
+   var channel2="1_1_9";
+    var channel3="1_1_10";
 
-   var query1={start: now, limit: limit, channel: channel1};
-   var query2={start: now, limit: limit, channels: [channel1, channel2]};
+   var query1={start: now, limit: limit, channels: channel1};
+   var query2={start: now, limit: limit, channels: [channel3,channel2]};
     console.log("Sending query 1: ", query1);
     querySocket.send(query1, function(err, event){
         if(err) console.log("ERROR IN QUERY 1", err, err.stack);
-        else console.log("Received event for query 1", event);
+
     });
     querySocket.send(query2, function(err, event){
         if(err) console.log("ERROR IN QUERY 2", err, err.stack);
-        else console.log("Received event for query 2", event);
-    });
 
+    });
 
 };
 setTimeout(test
